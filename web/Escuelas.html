@@ -1,7 +1,7 @@
 ﻿<html>
 
 <head>
-    <title>TODO supply a title</title>
+    <title>Escuelas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
@@ -25,30 +25,27 @@
                 <td>
 
                     <div class="barranavegar">
-                        <nav class="navbar navbar-expand-sm  navbar-dark">
-                            <ul class="navbar-nav">
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="index.html">Home</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="alumnos.html">Alumnos</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="Escuelas.html">Schools</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="Cursos.html">Cursos</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="#">Contacto</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="letrasnav" href="#">Usuario</a>
-                                </li>
+                                    <nav class="navbar navbar-expand-sm  navbar-dark" style="margin-left: 600px; text-decoration: none;">
+                                        <ul class="navbar-nav " id="barra-nav" style="list-style-type: none; text-decoration: none;">
+                                            <li class="nav-item active" >
+                                                <a class="letrasnav " href="index.html" style="text-decoration: none;">Home</a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="letrasnav" href="Escuelas.html" style="text-decoration: none;">Schools</a>
+                                            </li>
+                                            <li class="nav-item active">
+                                                <a class="letrasnav" href="Cursos.html" style="text-decoration: none;">Cursos</a>
+                                            </li>
+                                            <li class="nav-item active">
+                                                <a class="letrasnav" href="alumnos.html" style="text-decoration: none;">Alumnos</a>
+                                            </li>
+                                            <li class="nav-item active">
+                                                <a class="letrasnav" href="registro.html" style="text-decoration: none;">Registro/Inicio Sesión</a>
+                                            </li>
 
-                            </ul>
-                        </nav>
-                    </div>
+                                        </ul>
+                                    </nav>
+                                </div>
                 </td>
             </tr>
         </table>
@@ -75,7 +72,7 @@
                     <h3>ATC Language Schools</h3>
                                 <center>
                                     <img src="https://www.languagecourse.net/images/schools/atc-language-schools--bray_1523023805994.jpg"
-                                    width="600px" height="450px" class="imagen-alumnos">
+                                    width="530px" height="450px" class="imagen-alumnos">
                                 </center>
                                 <br>
                                 <br>
@@ -161,409 +158,6 @@
             <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
             <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
           </ul>
-          <div class="container contenido-tabla-escuelas">
-                <br>
-                <h2>Schools</h2>
-                <br>
-                <div class="container">
-                        <!-- Button to Open the Modal -->
-                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#InsertarModal">
-                            Insertar
-                        </button>
-                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#EliminarModal">
-                            Eliminar
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ConsultarModal">
-                            Consultar
-                        </button>
-                        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#ModificarModal">
-                            Modificar
-                        </button>
-            
-                        <!-- The Modal -->
-                        <div class="modal" id="InsertarModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-            
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Insertar Escuela</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-            
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    Nombre Escuela:
-                                                </td>
-                                                <td>
-                                                    <input type="text" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Domicilio:
-                                                </td>
-                                                <td>
-                                                    <input type="text" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Telefono:
-                                                </td>
-                                                <td>
-                                                    <input type="text" placeholder="+##-###-###-####" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Correo:
-                                                </td>
-                                                <td>
-                                                    <input type="text" placeholder="example@example.com" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    No. Alumnos:
-                                                </td>
-                                                <td>
-                                                    <input type="text" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Año de Fundacion:
-                                                </td>
-                                                <td>
-                                                    <input type="text"  />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-            
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Insertar</button>
-                                    </div>
-            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal" id="EliminarModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-            
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Eliminar Escuela</h4>
-                                        <button type="button" class="close " data-dismiss="modal">&times;</button>
-                                    </div>
-            
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    Id Escuela:
-                                                </td>
-                                                <td>
-                                                    <input type="text" placeholder="ID escuela a eliminar" />
-                                                </td>
-                                                <td>
-            
-                                                    <button type="button" class="btn btn-info">Buscar</button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <br>
-                                        <h6>Datos de la escuela a eliminar</h6>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    Nombre:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="Griffith College Dublin" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Domicilio:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="Dublin Cork Limerick, Ireland" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Telefono:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="+353 61 310 031" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Correo:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="admissions.gcl@griffith.ie" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    No.Alumnos:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="7000" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Fundacion:
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" placeholder="1974" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-            
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Eliminar</button>
-                                    </div>
-            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal" id="ConsultarModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-            
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Consultar Escuela</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-            
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" placeholder="Buscar" />
-                                                </td>
-                                                <td>
-            
-                                                    <button type="button" class="btn btn-info">Buscar</button>
-                                                </td>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="busqueda" value="id">Id Escuela<br>
-                                                    <input type="radio" name="busqueda" value="nombre">Nombre <br>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <br>
-                                        <h6>Datos de la escuela buscada</h6>
-                                        <table>
-                                                <tr>
-                                                    <td>
-                                                        Nombre:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="Griffith College Dublin" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Domicilio:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="Dublin Cork Limerick, Ireland" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Telefono:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="+353 61 310 031" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Correo:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="admissions.gcl@griffith.ie" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        No.Alumnos:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="7000" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Fundacion:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="1974" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                    </div>
-            
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar </button>
-                                    </div>
-            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal" id="ModificarModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-            
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Modificar Escuela</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-            
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" placeholder="Buscar" />
-                                                </td>
-                                                <td>
-            
-                                                    <button type="button" class="btn btn-info">Buscar</button>
-                                                </td>
-                                                <td>
-            
-                                                    <button type="button" class="btn btn-info">Habilitar</button>
-                                                </td>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="busqueda" value="id">Id Escuela<br>
-                                                    <input type="radio" name="busqueda" value="nombre">Nombre <br>
-                                                    </td>
-                                            </tr>
-                                        </table>
-                                        <br>
-                                        <h6>Datos de la escuela a modificar</h6>
-                                        <table>
-                                                <tr>
-                                                    <td>
-                                                        Nombre:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="Griffith College Dublin" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Domicilio:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="Dublin Cork Limerick, Ireland" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Telefono:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="+353 61 310 031" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Correo:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="admissions.gcl@griffith.ie" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        No.Alumnos:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="7000" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Fundacion:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" disabled="disabled" placeholder="1974" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                    </div>
-            
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Modificar </button>
-                                    </div>
-            
-                                </div>
-                            </div>
-                        </div>
-            
-                    
-                    <br>
-                    <br>
-          <table class="table table-hover tabla-alumno">
-                <thead>
-                    <tr>
-                        <th>Id_Escuela</th>
-                        <th>Nombre</th>
-                        <th>Domicilio</th>
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>No.Alumnos</th>
-                        <th>Fundacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>University College Dublin </td>
-                        <td>Belfield, Dublin, Irlanda</td>
-                        <td>+353 1 716 7777</td>
-                        <td>ucdresearch@ucd.ie</td>
-                        <td>32.387</td>
-                        <td>1854</td> 
-                    </tr>
-                    <tr>
-                            <td>2</td>
-                            <td>Griffith College </td>
-                            <td>S Circular Rd, Merchants Quay, Dublin 8, D08 V04N, Irlanda</td>
-                            <td>+353 1 415 0400</td>
-                            <td>admissions@griffith.ie/td>
-                            <td>7,000</td>
-                            <td>1974</td>
-                    </tr>
-                </tbody>
-            </table>
-                </div>
-        </div>
 </body>
 <br>
 <center>
