@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Cursos</title>
+        <script src="jquery-3.4.1.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Librerías -->
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+             <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
+        <link rel="stylesheet" type="text/css" href="estilos/stylealumnos.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Script-->
+        <script>
+            $(document).ready(
+                    function () {
+                        $('#tbCurso').DataTable({
+                            "ajax": "ConsultaCurso",
+                            //http://localhost:8080/EjemploDatabases/ConsultaPersona"//"data/usuario.json", //Datasouces
+                            "columns": [//Atributos que se pondrán en cada columna
+                                {"data": "idcurso"},
+                                {"data": "nombrecurso"},
+                                {"data": "nivel"},
+                                {"data": "numeroalumnos"},
+                                {"data": "periodo"},
+                                {"data": "profesor"},
+                                {"data": "horario"},
+                                {"data":
+                                            function (row) {
+                                                var c = row['idcurso']
+                                                        + "-" + row['nombrecurso']
+                                                        + "-" + row['nivel']
+                                                        + "-" + row['numeroalumnos']
+                                                        + "-" + row['periodo']
+                                                        + "-" + row['profesor']
+                                                        + "-" + row['horario']; //Acceder
+                                                console.log('valor de c' + c);
+
+                                                var botones = "<button id='btnBorrar' class='btn btn-danger  btn-xs' onClick='deleteCurso(" + row['idcurso'] + ")'>Borrar</button>";
+                                                botones += "<button id='btnEditar' class='btn btn-xs btn-warning' onClick='showCurso("
+                                                        + row['idcurso']
+                                                        + ",\"" + row['nombrecurso'] + "\""
+                                                        + ",\"" + row['nivel'] + "\""
+                                                         + "," + row['numeroalumnos']
+                                                        + ",\"" + row['periodo'] + "\""
+                                                        + ",\"" + row['profesor'] + "\""
+                                                        + ",\"" + row['horario'] + "\")'> Editar </button>";
+                                                return botones;
+                                            }
+                                }
+                            ]
+                        });
+                        $('#frmCurso').validate({
+                            rules:
+                                    {
+                                        idcurso:
+                                                {
+                                                    required: true
+                                                },
+                                        nombrecurso:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        nivel:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        numeroalumnos:
+                                                {
+                                                    required: true
+                                                },
+                                        periodo:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                },
+                                        profesor:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        horario:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idcurso: {
+                                            required: "El id del curso es requerido"
+                                        },
+                                        nombrecurso:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del Curso"
+                                                },
+                                        nivel:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nivel del curso"
+                                                },
+                                        numeroalumnos:
+                                                {
+                                                    required: "Se requiere el numero de alumnos"
+                                                },
+                                        periodo:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 50 caracteres",
+                                                    required: "Se requiere el periodo el curso"
+                                                },
+                                        profesor:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del profesor"
+                                                },
+                                        horario:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el horario del curso"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                newCurso();
+                                return false;
+                            }
+
+                        });
+                        $('#frmCurso2').validate({
+                            rules:
+                                    {
+                                        idcurso2:
+                                                {
+                                                    required: true
+                                                },
+                                        nombrecurso2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        nivel2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        numeroalumnos2:
+                                                {
+                                                    required: true
+                                                },
+                                        periodo2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                },
+                                        profesor2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        horario2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idcurso2: {
+                                            required: "El id del curso es requerido"
+                                        },
+                                        nombrecurso2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del Curso"
+                                                },
+                                        nivel2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nivel del curso"
+                                                },
+                                        numeroalumnos2:
+                                                {
+                                                    required: "Se requiere el numero de alumnos"
+                                                },
+                                        periodo2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 50 caracteres",
+                                                    required: "Se requiere el periodo el curso"
+                                                },
+                                        profesor2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del profesor"
+                                                },
+                                        horario2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el horario del curso"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                updateCurso();
+                                return false;
+                            }
+
+                        });
+
+                        $('#btnEditar').on('click', function () {
+                            $('#frmCurso2').submit();
+                        });
+                    }
+            );
+
+            function deleteCurso(idcurso) {
+                //Utilizando Ajax para realizar una petición al servlet que elimina personas
+                $.ajax({
+                    url: "EliminarCurso", //Url del Servlet
+                    type: "POST", //Método HTTP por el que se hace la petición
+                    data: {//Es la información que mando al servlet
+                        idcurso: idcurso
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    
+                    //Refrescando la tabla
+                    $('#tbCurso').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                    
+                    //alert("error");
+                });
+            }
+
+
+            function newCurso() {
+                $.ajax({
+                    url: 'NuevoCurso',
+                    type: 'POST',
+                    data: {
+                        idcurso: $("#idcurso").val(),
+                        nombrecurso: $("#nombrecurso").val(),
+                        nivel: $("#nivel").val(),
+                        numeroalumnos: $("#numeroalumnos").val(),
+                        periodo: $("#periodo").val(),
+                        profesor: $("#profesor").val(),
+                        horario: $("#horario").val()
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbCurso').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+            function showCurso(idcurso, nombrecurso, nivel, numeroalumnos, periodo, profesor, horario)
+            {
+                $("#idcurso2").val(idcurso);
+                $("#nombrecurso2").val(nombrecurso);
+                $("#nivel2").val(nivel);
+                $("#numeroalumnos2").val(numeroalumnos);
+                $("#periodo2").val(periodo);
+                $("#profesor2").val(profesor);
+                $("#horario2").val(horario);
+
+                $("#modalCurso").modal("show");
+
+            }
+            function updateCurso() {
+                $.ajax({
+                    url: 'ActualizarCurso',
+                    type: 'POST',
+                    data: {
+                        idcurso: $("#idcurso2").val(),
+                        nombrecurso: $("#nombrecurso2").val(),
+                        nivel: $("#nivel2").val(),
+                        numeroalumnos: $("#numeroalumnos2").val(),
+                        periodo: $("#periodo2").val(),
+                        profesor: $("#profesor2").val(),
+                        horario: $("#horario2").val()
+
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbCurso').dataTable().api().ajax.reload();
+
+                    //Cerrando el modal
+                    $('#modalCurso').modal("toggle");
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="encabezado">
+            <div class="barra_nav">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="imagennav">
+                                <img src="recursos/logo.png" width="75" height="70">
+
+                            </div>
+                        </td>
+                        <td>
+
+                            <div class="barranavegar">
+                                <nav class="navbar navbar-expand-sm  navbar-dark" style="text-decoration: none;">
+                                    <ul class="navbar-nav " id="barra-nav" style="list-style-type: none; text-decoration: none;">
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="index.html" style="text-decoration: none;">Home</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="alumnos.html" style="text-decoration: none;">Alumnos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Escuelas.html" style="text-decoration: none;">Schools</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Cursos.html" style="text-decoration: none;">Cursos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Contacto</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Usuario</a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--encabezado-->
+    <center>
+        <div class="contenedor-alumnos">
+            <br>
+            <h2 class="titulo-alumnos">Courses</h2>
+            <h5 style="color: green">Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</h5>
+            <br>
+        </div>
+
+    </center>
+        <div class="container">
+        <div id="modalCurso" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h3>Modificar Curso</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="col-lg-12" id="frmCurso2" method="POST">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="Nombrecurso2">Cursos</label>
+                                    <div class="input-group cocol-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <span class="input-group-addon">Curso</span>
+                                        <input  class="form-control" id="idcurso2" name="idcurso2">
+                                        Nombre Curso: <input  id="nombrecurso2" name="nombrecurso2">
+                                        <br>
+                                        Nivel: <input id="nivel2" name="nivel2">
+                                        <br>
+                                        Numero alumnos: <input id="numeroalumnos2" type="number" name="numeroalumnos2">
+                                        <br>
+                                        Periodo: <input id="periodo2" name="periodo">
+                                        <br>
+                                        Profesor: <input id="profesor2" name="profesor2">
+                                        <br>
+                                        Horario: <input id="horario2" name="horario2">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnEditar" class="btn btn-sm btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <br>
+        <!--Aqui inicia el form-->
+        <div class="row container contenido-tabla-escuelas" style="height: 390px;">
+            <h2>Cursos Online</h2>
+            <br>
+
+            <div class="col col-lg-12 col-md-12">
+                <form id="frmCurso" method="POST">
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="idcurso">Clave Curso</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>  
+                                </span>
+                                <input class="form-control" id="idcurso" name="idcurso">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Nombre curso-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nombrecurso">Nombre Curso</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-tag"></i>  
+                                </span>
+                                <input class="form-control" id="nombrecurso" name="nombrecurso">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nivel-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nivel">Nivel</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-stats"></i>  
+                                </span>
+                                <input class="form-control" id="nivel" name="nivel">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Numero Alumnos-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="numeroalumnos">Numero Alumnos</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-education"></i>  
+                                </span>
+                                <input class="form-control" id="numeroalumnos" name="numeroalumnos" type="number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Periodo-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="periodo">Periodo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-retweet"></i>  
+                                </span>
+                                <input class="form-control" id="periodo" name="periodo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Profesor-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="profesor">Profesor</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-apple"></i>  
+                                </span>
+                                <input class="form-control" id="profesor" name="profesor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Horario-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="horario">Horario</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>  
+                                </span>
+                                <input class="form-control" id="horario" name="horario">
+                            </div>
+                        </div>
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="glyphicon glyphicon-save">&nbsp;Guardar</i>
+                        </button>    
+                    </div>
+                </form>     
+                  
+            </div> <!--FIN DEL DIV QUE CONTIENE EL FORMULARIO-->
+             
+        </div> <!--Fin del div principal-->  
+        <br>
+                <br> 
+        <div class="row" style="height: auto;">
+            <table id="tbCurso">
+                <thead>
+                    <tr>
+                        <th>Clave Curso</th>
+                        <th>Nombre Curso</th>
+                        <th>Nivel</th>
+                        <th># Alumnos</th>
+                        <th>Periodo</th>
+                        <th>Profesor</th>
+                        <th>Horario</th>
+                        <th>Operaciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        </div>
+    <br>
+    <br>
+    <div class="final">
+            <br>
+            <br>
+            <div class="jumbotron-fluid">
+                <div class="container">
+                    <h1>Ireland schools</h1>
+                    <p class="footer-alumno">Copyright&copy; 2019 - Página creada por AleGrande- Todos los derechos reservados</p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </body>
+</html>

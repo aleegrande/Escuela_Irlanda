@@ -1,0 +1,42 @@
+.contenedor-alumnos
+{
+    width: auto;
+    height: 130px;
+    background-color: #FAD086;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.imagen-alumnos
+{
+    margin-right:10px;
+}
+p
+{
+ text-align: justify;
+}
+.contenido-tabla-alumnos
+{
+    background-color:#E2F9FC;
+}
+.tabla-alumno
+{
+background-color: white;
+}
+.footer-alumno
+{
+    text-align: center;
+}
+.contenedor-escuelas
+{
+    background-color: #EAFFD8;
+    padding: 5px;
+}
+.contenedor-escuela-derecha
+{
+    background-color: #EAFFD8;
+}
+.contenido-tabla-escuelas
+{
+    background-color:#E2F9FC;
+    height: 350px;
+}

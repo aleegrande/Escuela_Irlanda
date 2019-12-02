@@ -1,0 +1,545 @@
+﻿<html>
+
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
+        <link rel="stylesheet" type="text/css" href="estilos/stylealumnos.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jsalumno.js"></script>
+    </head>
+    <div class="encabezado">
+        <div class="barra_nav">
+            <table>
+                <tr>
+                    <td>
+                        <div class="imagennav">
+                            <img src="recursos/logo.png" width="75" height="70">
+
+                        </div>
+                    </td>
+                    <td>
+
+                        <div class="barranavegar">
+                            <nav class="navbar navbar-expand-sm  navbar-dark">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Home</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="alumnos.html">Alumnos</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="Escuelas.html">Schools</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="Cursos.html">Cursos</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Contacto</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Usuario</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--encabezado-->
+
+    <body>
+    <center>
+        <div class="contenedor-alumnos">
+            <br>
+            <h3 class="titulo-alumnos">Alumnos</h3>
+            <h6>Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</h6>
+            <br>
+        </div>
+
+    </center>
+    <br>
+    <section class="container">
+        <div class="row">
+            <!-- main content -->
+            <section class="col-sm-7 maincontent">
+                <h3>Our students</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <img src="http://www.ubo.cl/boletin/wp-content/uploads/2018/03/Foto_Atenci%C3%B3n_Alumnos.jpg"
+                                 width="400px" height="250px" class="imagen-alumnos">
+                        </td>
+                        <td>
+                            <br>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius
+                                repellendus eos aliquid molestiae ea laborum ex Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea
+                                laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae
+                                soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente.
+                            </p>
+                            <p>Consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid
+                                molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam
+                                beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente.
+                            </p>
+
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <!-- /main -->
+            <!-- Sidebar -->
+            <aside class="col-sm-3 sidebar sidebar-right">
+
+                <div class="panel">
+                    <h4>Latest News</h4>
+                    <ul class="list-unstyled list-spaces">
+                        <li><a href="">Responsive Design</a><br>
+                            <span class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Animi, laborum.</span></li>
+                        <li><a href="">HTML5, CSS3 and JavaScript</a><br>
+                            <span class="small text-muted">Consequuntur eius repellendus eos aliquid molestiae ea
+                                laborum ex quibusdam</span></li>
+                        <li><a href="">Bootstrap</a><br>
+                            <span class="small text-muted">Eveniet, consequuntur eius repellendus eos aliquid molestiae
+                                ea</span></li>
+                        <li><a href="">Clean Template</a><br>
+                            <span class="small text-muted">Sed, mollitia earum debitis est itaque esse reiciendis amet
+                                cupiditate.</span></li>
+                        <li><a href="">Premium Quality</a><br>
+                            <span class="small text-muted">Voluptate minus illo tenetur sint ab in culpa cumque impedit
+                                quibusdam. Saepe, molestias quia.</span></li>
+                    </ul>
+                </div>
+
+            </aside>
+            <!-- /Sidebar -->
+        </div>
+    </section>
+    <div class="container contenido-tabla-alumnos">
+        <br>
+        <h2>Students</h2>
+        <div class="container">
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-outline-success" id="btnNuevo" data-toggle="modal" data-target="#InsertarModal" 
+                    onClick="showNuevoAlumno">
+                Insertar
+            </button>
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#EliminarModal">
+                Eliminar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ConsultarModal">
+                Consultar
+            </button>
+            <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#ModificarModal">
+                Modificar
+            </button>
+
+            <!-- The Modal -->
+            <div class="modal" id="InsertarModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Insertar Alumno</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form id="frmAlumnos" method="POST">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span></span>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                Id Alumno:
+                                            </td>
+                                            <td>
+                                                <input id="Idalumno" name="Idalumno"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Nombre Alumno:
+                                            </td>
+                                            <td>
+                                                <input  id="Nombrealumno" name="Nombrealumno" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Usuario del Alumno:
+                                            </td>
+                                            <td>
+                                                <input id="Nombreusuario" name="Nombreusuario" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Fecha de Nacimiento:
+                                            </td>
+                                            <td>
+                                                <input id="Fechanacimieto" name="Fechanacimiento" type="date" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Nacionalidad:
+                                            </td>
+                                            <td>
+                                                <input  id="Nacionalidad" name="Nacionalidad" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Telefono:
+                                            </td>
+                                            <td>
+                                                <input  id="Telefono" name="Telefono" placeholder="(###)###-###-#####" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Correo Electronico:
+                                            </td>
+                                            <td>
+                                                <input  id="Correo" name="Correo" placeholder="example@example.com" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <div align="right">
+                                <button type="submit" class="btn btn-info btn-lg">Insertar</button> 
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="EliminarModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Eliminar Alumno</h4>
+                            <button type="button" class="close " data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td>
+                                        Id Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="ID alumno a eliminar" />
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-info">Buscar</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+                            <h6>Datos del Alumno a eliminar</h6>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Nombre Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Juan Perez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Usuario del Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="JuP3rez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha de Nacimiento:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="09-09-2000" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nacionalidad:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Italiana" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Telefono:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="(311)123-111-2222" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Correo Electronico:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="juan-perez09@gmail.com" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="ConsultarModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Consultar Alumno</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" placeholder="Buscar" />
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-info">Buscar</button>
+                                    </td>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="busqueda" value="id">Id usuario<br>
+                                        <input type="radio" name="busqueda" value="nombre">Nombre <br>
+                                        <input type="radio" name="busqueda" value="usuario">Nombre usuario<br>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+                            <h6>Datos del Alumno buscado</h6>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Nombre Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Juan Perez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Usuario del Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="JuP3rez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha de Nacimiento:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="09-09-2000" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nacionalidad:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Italiana" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Telefono:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="(311)123-111-2222" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Correo Electronico:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="juan-perez09@gmail.com" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="ModificarModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modificar Alumno</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" placeholder="Buscar" />
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-info">Buscar</button>
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-info">Habilitar</button>
+                                    </td>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="busqueda" value="id">Id usuario<br>
+                                        <input type="radio" name="busqueda" value="nombre">Nombre <br>
+                                        <input type="radio" name="busqueda" value="usuario">Nombre usuario<br>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+                            <h6>Datos del Alumno a modificar</h6>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Nombre Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Juan Perez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Usuario del Alumno:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="JuP3rez" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha de Nacimiento:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="09-09-2000" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nacionalidad:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="Italiana" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Telefono:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="(311)123-111-2222" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Correo Electronico:
+                                    </td>
+                                    <td>
+                                        <input type="text" disabled="disabled" placeholder="juan-perez09@gmail.com" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Modificar </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <table class="table table-hover tabla-alumno" id="tbAlumnos">
+            <thead>
+                <tr>
+                    <th>Id_estudiante</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Nacionalidad</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+        </table>
+        <br>
+    </div>
+    <br>
+    <center>
+        <div class="final">
+            <br>
+            <br>
+            <div class="jumbotron-fluid">
+                <div class="container">
+                    <h1>Ireland schools</h1>
+                    <p class="footer-alumno">Copyright&copy; 2019 - Página creada por AleGrande- Todos los derechos reservados</p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </center>
+</body>
+
+</html>

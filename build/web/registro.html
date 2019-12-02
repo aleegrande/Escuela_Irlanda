@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Registro y Acceso</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
+    </head>
+    <body>
+         <div class="encabezado">
+        <div class="barra_nav">
+            <table>
+                <tr>
+                    <td>
+                        <div class="imagennav">
+                            <img src="recursos/logo.png" width="75" height="70">
+
+                        </div>
+                    </td>
+                    <td>
+
+                        <div class="barranavegar">
+                            <nav class="navbar navbar-expand-sm  navbar-dark" >
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Home</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="alumnos.html">Alumnos</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="Escuelas.html">Schools</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="Cursos.html">Cursos</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Contacto</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="letrasnav" href="#">Usuario</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div><!--encabezado-->
+    <center>
+         <div class="bajonav">
+    </div>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div  class="margenregistro">
+                    <div id="lateral">
+                        <h1>Iniciar Sesión</h1>
+                <h6>Usuario: </h6><input type="text" name ="usuario"/>
+                <br>
+                <h6>Contraseña: </h6><input type="password" name="password"/>
+                <br>
+                <button class="botones"> <a href="InicioSesion.html">Abrir</a></button>
+            </div>
+                        </div>
+                </td>
+                <td>
+                     <div  class="margenregistro2">
+                    <div id="lateral2">
+                         <div>
+                             <h1>Formulario Registro de Datos</h1>
+            <form name="forma" action="/Escuelas_Irlanda/servletformulario" method="post" onsubmit="return validarFormulario(this);">
+            <table>
+                <tr>
+                    <td class="formatotabla">Usuario: (*)</td>
+                    <td><input type="text" name ="usuario2" placeholder="Escribir usuario"/> </td>
+                </tr>
+                <tr>
+                    <td class="formatotabla">Password: (*)</td>
+                    <td><input type="password" name ="password2"/></td>
+                </tr>
+                <tr>
+                    <td class="formatotabla">Idiomas de Interés: (*)</td>
+                    <td align="center"><input type="checkbox" name="idiomas" value="ingles">Ingles  <input type="checkbox" name="idiomas" value="frances">Frances <input type="checkbox" name="idiomas" value="japones"> Japones  </td>
+                </tr>
+                <tr>
+                    <td class="formatotabla">Género: (*)</td>
+                    <td align="center"><input type="radio" name="genero" value="Hombre"> Hombre <input type="radio" name="genero" value="Mujer">Mujer</td>
+                </tr>
+                <tr>
+                    <td class="formatotabla">Nacionalidad: (*)</td>
+                    <td><select name="nacionalidad">
+                        <option value="">Seleccionar</option>
+                        <option value="Estadounidense">Estadounidense</option>
+                        <option value="Ingles">Ingles</option>
+                        <option value="Mexicano">Mexicano</option>
+                      </select>
+                       </td>
+                </tr>
+                 <tr>
+                    <td class="formatotabla">Escuela de Interes:</td>
+                      <td><select name="Escuela" multiple >
+                        <option value="ATC">ATC Language Schools</option>
+                        <option value="CEW">Cork English World</option>
+                        <option value="ACET">ACET/Cork Language Centre International</option>
+                        <option value="NAT">Nations</option>
+                        <option value="CEA">Cork English Academy</option>
+                        <option value="AJC">Apollo Junior Centre</option>
+                      </select>
+                      </td>
+                </tr>
+                <tr>
+                    <td class="formatotabla">Comentarios:</td>
+                    <td><textarea name="comentarios" rows="5" cols="40" placeholder="Escribe aquí tus comentarios"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="button" name="limpiar" value="Limpiar" class="botones"></td>
+                    <td><input type="submit" name="enviar" value="Enviar" class="botones"></td>
+                </tr>
+            </table>
+            </form>
+        </div>
+                    </div>
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        
+      <h3><a href="/Escuelas_Irlanda/administracion">Para mas información clic aqui</a></h3>
+    </center>
+        <div class="final">
+           <br>
+           <br>
+           <div class="jumbotron-fluid">
+  <div class="container">
+    <h1>Ireland schools</h1>      
+    <p>Copyright&copy; 2019 - Página creada por AleGrande- Todos los derechos reservados</p>
+  </div>
+</div>
+           <br>
+       </div>
+    </body>
+</html>

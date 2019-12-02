@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Escuelas</title>
+        <script src="jquery-3.4.1.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+        <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
+        <link rel="stylesheet" type="text/css" href="estilos/stylealumnos.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Script-->
+        <script>
+            $(document).ready(
+                    function () {
+                        $('#tbEscuela').DataTable({
+                            "ajax": "ConsultaEscuela",
+                            //http://localhost:8080/EjemploDatabases/ConsultaPersona"//"data/usuario.json", //Datasouces
+                            "columns": [//Atributos que se pondrán en cada columna
+                                {"data": "idescuela"},
+                                {"data": "nombreescuela"},
+                                {"data": "domicilio"},
+                                {"data": "telefono"},
+                                {"data": "numeroalumnos"},
+                                {"data": "fundacion"},
+                                {"data":
+                                            function (row) {
+                                                var e = row['idescuela']
+                                                        + "-" + row['nombreescuela']
+                                                        + "-" + row['domicilio']
+                                                        + "-" + row['telefono']
+                                                        + "-" + row['numeroalumnos']
+                                                        + "-" + row['fundacion']; //Acceder
+                                                console.log('valor de e' + e);
+
+                                                var botones = "<button id='btnBorrar' class='btn btn-danger btn-xs' onClick='deleteEscuela(" + row['idescuela'] + ")'>Borrar</button>";
+                                                botones += "<button id='btnEditar' class='btn btn-xs btn-warning' onClick='showEscuela("
+                                                        + row['idcurso']
+                                                        + ",\"" + row['nombreescuela'] + "\""
+                                                        + ",\"" + row['domicilio'] + "\""
+                                                        + ",\"" + row['telefono'] + "\""
+                                                        + ",\"" + row['numeroalumnos'] + "\""
+                                                        + ",\"" + row['fundacion'] + "\")'> Editar </button>";
+                                                return botones;
+                                            }
+                                }
+                            ]
+                        });
+                        $('#frmEscuela').validate({
+                            rules:
+                                    {
+                                        idescuela:
+                                                {
+                                                    required: true
+                                                },
+                                        nombreescuela:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        domicilio:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        telefono:
+                                                {
+                                                    required: true
+                                                },
+                                        numeroalumnos:
+                                                {
+                                                    required: true
+                                                },
+                                        fundacion:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idescuela: {
+                                            required: "El id de la esucela es requerida"
+                                        },
+                                        nombreescuela:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre de la escuela"
+                                                },
+                                        domicilio:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el domicilio de la escuela"
+                                                },
+                                        telefono:
+                                                {
+                                                    required: "Se requiere el telefono"
+                                                },
+                                        numeroalumnos:
+                                                {
+
+                                                    required: "Se requiere el numero de alumnos"
+                                                },
+                                        fundacion:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el año de fundacion"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                newEscuela();
+                                return false;
+                            }
+
+                        });
+                        $('#frmEscuela2').validate({
+                            rules:
+                                    {
+                                        idescuela2:
+                                                {
+                                                    required: true
+                                                },
+                                        nombreescuela2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        domicilio2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        telefono2:
+                                                {
+                                                    required: true
+                                                },
+                                        numeroalumnos2:
+                                                {
+                                                    required: true
+                                                },
+                                        fundacion2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idescuela2: {
+                                            required: "El id de la esucela es requerida"
+                                        },
+                                        nombreescuela2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre de la escuela"
+                                                },
+                                        domicilio2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el domicilio de la escuela"
+                                                },
+                                        telefono2:
+                                                {
+                                                    required: "Se requiere el telefono"
+                                                },
+                                        numeroalumnos2:
+                                                {
+
+                                                    required: "Se requiere el numero de alumnos"
+                                                },
+                                        fundacion2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el año de fundacion"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                updateEscuela();
+                                return false;
+                            }
+
+                        });
+
+                        $('#btnEditar').on('click', function () {
+                            $('#frmEscuela2').submit();
+                        });
+                    }
+            );
+
+            function deleteEscuela(idescuela) {
+                //Utilizando Ajax para realizar una petición al servlet que elimina personas
+                $.ajax({
+                    url: "EliminarEscuela", //Url del Servlet
+                    type: "POST", //Método HTTP por el que se hace la petición
+                    data: {//Es la información que mando al servlet
+                        idescuela: idescuela
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+
+                    //Refrescando la tabla
+                    $('#tbEscuela').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+
+                    //alert("error");
+                });
+            }
+
+
+            function newEscuela() {
+                $.ajax({
+                    url: 'NuevoEscuela',
+                    type: 'POST',
+                    data: {
+                        idescuela: $("#idescuela").val(),
+                        nombreescuela: $("#nombreescuela").val(),
+                        domicilio: $("#domicilio").val(),
+                        telefono: $("#telefono").val(),
+                        numeroalumnos: $("#numeroalumnos").val(),
+                        fundacion: $("#fundacion").val()
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbEscuela').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+            function showEscuela(idescuela, nombreescuela, domicilio, telefono, numeroalumnos, fundacion)
+            {
+                $("#idescuela2").val(idescuela);
+                $("#nombreescuela2").val(nombreescuela);
+                $("#domicilio2").val(domicilio);
+                $("#telefono2").val(telefono);
+                $("#numeroalumnos2").val(numeroalumnos);
+                $("#fundacion2").val(fundacion);
+
+                $("#modalEscuela").modal("show");
+
+            }
+            function updateEscuela() {
+                $.ajax({
+                    url: 'ActualizarEscuela',
+                    type: 'POST',
+                    data: {
+                        idescuela: $("#idescuela2").val(),
+                        nombreescuela: $("#nombreescuela2").val(),
+                        domicilio: $("#domicilio2").val(),
+                        telefono: $("#telefono2").val(),
+                        numeroalumnos: $("#numeroalumnos2").val(),
+                        fundacion: $("#fundacion2").val()
+
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbEscuela').dataTable().api().ajax.reload();
+                    //Cerrando el modal
+                    $('#modalEscuela').modal("toggle");
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="encabezado">
+            <div class="barra_nav">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="imagennav">
+                                <img src="recursos/logo.png" width="75" height="70">
+
+                            </div>
+                        </td>
+                        <td>
+
+                            <div class="barranavegar">
+                                <nav class="navbar navbar-expand-sm  navbar-dark" style="text-decoration: none;">
+                                    <ul class="navbar-nav " id="barra-nav" style="list-style-type: none; text-decoration: none;">
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="index.html" style="text-decoration: none;">Home</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="alumnos.html" style="text-decoration: none;">Alumnos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Escuelas.html" style="text-decoration: none;">Schools</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Cursos.html" style="text-decoration: none;">Cursos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Contacto</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Usuario</a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--encabezado-->
+    <center>
+        <div class="contenedor-alumnos">
+            <br>
+            <h2 class="titulo-alumnos">Schools</h2>
+            <h5 style="color: green">Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</h5>
+            <br>
+        </div>
+
+    </center>
+    <br>
+    <div class="container " >
+        <div id="modalEscuela" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h3>Modificar Alumno</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="col-lg-12" id="frmEscuela2" method="POST">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="nombreescuela2">Escuela</label>
+                                    <div class="input-group cocol-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <span class="input-group-addon">Escuela</span>
+                                        <input  class="form-control" id="idescuela2" name="idescuela2" disabled>
+                                        Nombre curso:<input  id="nombreescuela2" name="nombreescuela2">
+                                        <br>
+                                        Domicilio:<input id="domicilio2" name="domicilio2">
+                                        <br>
+                                        Telefono:<input id="telefono2"  name="telefono2">
+                                        <br>
+                                        Numero Alumnos:<input id="numeroalumnos2" name="numeroalumnos2" type="number">
+                                        <br>
+                                        Fundacion: <input id="fundacion2" name="fundacion2">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-primary btn-lg" id="btnEditar">Guardar</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Aqui inicia el form-->
+        <div class="row container contenido-tabla-escuelas" style="height: 370px;">
+            <h2>Escuelas Online</h2>
+            <br>
+
+            <div class="col col-lg-12 col-md-12">
+                <form id="frmEscuela" method="POST">
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="idescuela">Clave Escuela</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-paperclip"></i>  
+                                </span>
+                                <input class="form-control" id="idescuela" name="idescuela">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Nombre alumno-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nombreescuela">Nombre Escuela</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-home"></i>  
+                                </span>
+                                <input class="form-control" id="nombreescuela" name="nombreescuela">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nombre usuario-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="domicilio">Domicilio</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-screenshot"></i>  
+                                </span>
+                                <input class="form-control" id="domicilio" name="domicilio">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Fecha Nacimiento-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="telefono">Telefono</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-phone-alt"></i>  
+                                </span>
+                                <input class="form-control" id="telefono" name="telefono">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nacionalidad-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="numeroalumnos">Numero Alumnos</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-education"></i>  
+                                </span>
+                                <input class="form-control" id="numeroalumnos" name="numeroalumnos" type="number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Telefono-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="fundacion">Fundacion</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-object-align-vertical"></i>  
+                                </span>
+                                <input class="form-control" id="fundacion" name="fundacion">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Correo-->
+                    <div align="right">
+                        <button type="submit" class="btn btn-success btn-lg ">
+                            Guardar
+                        </button> 
+
+                    </div>
+                </form> 
+                <br>
+                <br>
+            </div> <!--FIN DEL DIV QUE CONTIENE EL FORMULARIO-->
+
+        </div> <!--Fin del div principal-->  
+
+        <div class="row" style="height: auto;">
+            <table id="tbEscuela">
+                <thead>
+                    <tr>
+                        <th>Clave Escuela</th>
+                        <th>Nombre Escuela</th>
+                        <th>Domicilio</th>
+                        <th>Telefono</th>
+                        <th># Alumnos</th>
+                        <th>Fundacion</th>
+                        <th>Operaciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="final">
+            <br>
+            <br>
+            <div class="jumbotron-fluid">
+                <div class="container">
+                    <h1>Ireland schools</h1>
+                    <p class="footer-alumno">Copyright&copy; 2019 - Página creada por AleGrande- Todos los derechos reservados</p>
+                </div>
+            </div>
+            <br>
+        </div>
+</body>
+</html>

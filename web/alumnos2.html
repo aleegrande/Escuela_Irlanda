@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Alumnos</title>
+        <script src="jquery-3.4.1.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Librerías -->
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="estilos/styleindex.css">
+        <link rel="stylesheet" type="text/css" href="estilos/stylealumnos.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Script-->
+        <script>
+            $(document).ready(
+                    function () {
+                        $('#tbAlumno').DataTable({
+                            "ajax": "ConsultaAlumno",
+                            //http://localhost:8080/EjemploDatabases/ConsultaPersona"//"data/usuario.json", //Datasouces
+                            "columns": [//Atributos que se pondrán en cada columna
+                                {"data": "idalumno"},
+                                {"data": "nombrealumno"},
+                                {"data": "nombreusuario"},
+                                {"data": "fechanacimiento"},
+                                {"data": "nacionalidad"},
+                                {"data": "telefono"},
+                                {"data": "correo"},
+                                {"data":
+                                            function (row) {
+                                                var a = row['idalumno']
+                                                        + "-" + row['nombrealumno']
+                                                        + "-" + row['nombreusuario']
+                                                        + "-" + row['fechanacimiento']
+                                                        + "-" + row['nacionalidad']
+                                                        + "-" + row['telefono']
+                                                        + "-" + row['correo']; //Acceder
+                                                console.log('valor de a' + a);
+
+                                                var botones = "<button id='btnBorrar' class='btn btn-danger btn-xs' onClick='deleteAlumno(" + row['idalumno'] + ")'>Borrar</button>";
+                                                botones += "<button id='btnEditar' class='btn btn-xs btn-warning' onClick='showAlumno("
+                                                        + row['idalumno']
+                                                        + ",\"" + row['nombrealumno'] + "\""
+                                                        + ",\"" + row['nombreusuario'] + "\""
+                                                        + ",\"" + row['fechanacimiento'] + "\""
+                                                        + ",\"" + row['nacionalidad'] + "\""
+                                                        + ",\"" + row['telefono'] + "\""
+                                                        + ",\"" + row['correo'] + "\")'> Editar </button>";
+                                                return botones;
+                                            }
+                                }
+                            ]
+                        });
+                        $('#frmAlumno').validate({
+                            rules:
+                                    {
+                                        idalumno:
+                                                {
+                                                    required: true
+                                                },
+                                        nombrealumno:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        nombreusuario:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        fechanacimiento:
+                                                {
+                                                    required: true
+                                                },
+                                        nacionalidad:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                },
+                                        telefono:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        correo:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idalumno: {
+                                            required: "El id del alumno es requerido"
+                                        },
+                                        nombrealumno:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del Alumno"
+                                                },
+                                        nombreusuario:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre de usuario"
+                                                },
+                                        fechanacimiento:
+                                                {
+                                                    required: "Se requiere la Fecha de Nacimiento"
+                                                },
+                                        nacionalidad:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 50 caracteres",
+                                                    required: "Se requiere la Nacionalidad"
+                                                },
+                                        telefono:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el telefono del alumno"
+                                                },
+                                        correo:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el correo del alumno"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                newAlumno();
+                                return false;
+                            }
+
+                        });
+                        $('#frmAlumno2').validate({
+                            rules:
+                                    {
+                                        idalumno2:
+                                                {
+                                                    required: true
+                                                },
+                                        nombrealumno2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 100,
+                                                    required: true
+                                                },
+                                        nombreusuario2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        fechanacimiento2:
+                                                {
+                                                    required: true
+                                                },
+                                        nacionalidad2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                },
+                                        telefono2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 25,
+                                                    required: true
+                                                },
+                                        correo2:
+                                                {
+                                                    minlength: 1,
+                                                    maxlength: 50,
+                                                    required: true
+                                                }
+                                    },
+                            messages:
+                                    {
+                                        idalumno2: {
+                                            required: "El id del alumno es requerido"
+                                        },
+                                        nombrealumno2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre del Alumno"
+                                                },
+                                        nombreusuario2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el nombre de usuario"
+                                                },
+                                        fechanacimiento2:
+                                                {
+                                                    required: "Se requiere la Fecha de Nacimiento"
+                                                },
+                                        nacionalidad2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 50 caracteres",
+                                                    required: "Se requiere la Nacionalidad"
+                                                },
+                                        telefono2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el telefono del alumno"
+                                                },
+                                        correo2:
+                                                {
+                                                    minlength: "Introduzca al menos 1 caracter",
+                                                    maxlength: "Introduzca maximo 100 caracteres",
+                                                    required: "Se requiere el correo del alumno"
+                                                }
+                                    },
+                            highlight: function (element)
+                            {
+                                $(element).closest('.form-group').addClass('has-error');
+                            },
+                            unhighlight: function (element)
+                            {
+                                $(element).closest('.form-group').removeClass('has-error');
+                            },
+                            errorElement: 'span',
+                            errorClass: 'help-block',
+                            errorPlacement: function (error, element)
+                            {
+                                if (element.parent('.input-group'.length))
+                                {
+                                    error.insertAfter(element.parent());
+                                } else
+                                {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form)
+                            {
+                                console.log('Formulario válido');
+                                updateAlumno();
+                                return false;
+                            }
+
+                        });
+
+                        $('#btnEditar').on('click', function () {
+                            $('#frmAlumno2').submit();
+                        });
+                    }
+            );
+
+            function deleteAlumno(idalumno) {
+                //Utilizando Ajax para realizar una petición al servlet que elimina personas
+                $.ajax({
+                    url: "EliminarAlumno", //Url del Servlet
+                    type: "POST", //Método HTTP por el que se hace la petición
+                    data: {//Es la información que mando al servlet
+                        idalumno: idalumno
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    
+                    //Refrescando la tabla
+                    $('#tbAlumno').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                    
+                    //alert("error");
+                });
+            }
+
+
+            function newAlumno() {
+                $.ajax({
+                    url: 'NuevoAlumno',
+                    type: 'POST',
+                    data: {
+                        idalumno: $("#idalumno").val(),
+                        nombrealumno: $("#nombrealumno").val(),
+                        nombreusuario: $("#nombreusuario").val(),
+                        fechanacimiento: $("#fechanacimiento").val(),
+                        nacionalidad: $("#nacionalidad").val(),
+                        telefono: $("#telefono").val(),
+                        correo: $("#correo").val()
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbAlumno').dataTable().api().ajax.reload();
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+            function showAlumno(idalumno, nombrealumno, nombreusuario, fechanacimiento, nacionalidad, telefono, correo)
+            {
+                $("#idalumno2").val(idalumno);
+                $("#nombrealumno2").val(nombrealumno);
+                $("#nombreusuario2").val(nombreusuario);
+                $("#fechanacimiento2").val(fechanacimiento);
+                $("#nacionalidad2").val(nacionalidad);
+                $("#telefono2").val(telefono);
+                $("#correo2").val(correo);
+
+                $("#modalAlumno").modal("show");
+
+            }
+            function updateAlumno() {
+                $.ajax({
+                    url: 'ActualizarAlumno',
+                    type: 'POST',
+                    data: {
+                        idalumno: $("#idalumno2").val(),
+                        nombrealumno: $("#nombrealumno2").val(),
+                        nombreusuario: $("#nombreusuario2").val(),
+                        fechanacimiento: $("#fechanacimiento2").val(),
+                        nacionalidad: $("#nacionalidad2").val(),
+                        telefono: $("#telefono2").val(),
+                        correo: $("#correo2").val()
+
+                    }
+                }).done(function (json) { //Se ejecuta cuando todo sale bien
+                    alert(json.msj);
+                    //Refrescando la tabla
+                    $('#tbAlumno').dataTable().api().ajax.reload();
+                    //Cerrando el modal
+                    $('#modalAlumno').modal("toggle");
+                }).fail(function (json) { //Se ejecuta cuando algo sale mal
+                    alert(json.msj);
+                });
+            }
+        </script>
+    </head>
+    <body>
+         <div class="encabezado">
+            <div class="barra_nav">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="imagennav">
+                                <img src="recursos/logo.png" width="75" height="70">
+
+                            </div>
+                        </td>
+                        <td>
+
+                            <div class="barranavegar">
+                                <nav class="navbar navbar-expand-sm  navbar-dark" style="text-decoration: none;">
+                                    <ul class="navbar-nav " id="barra-nav" style="list-style-type: none; text-decoration: none;">
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="index.html" style="text-decoration: none;">Home</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="alumnos.html" style="text-decoration: none;">Alumnos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Escuelas.html" style="text-decoration: none;">Schools</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="Cursos.html" style="text-decoration: none;">Cursos</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Contacto</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="letrasnav" href="#" style="text-decoration: none;">Usuario</a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--encabezado-->
+    <center>
+        <div class="contenedor-alumnos">
+            <br>
+            <h2 class="titulo-alumnos">Students</h2>
+            <h5 style="color: green">Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</h5>
+            <br>
+        </div>
+
+    </center>
+    <br>
+        <div class="container">
+        <div id="modalAlumno" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h3>Modificar Alumno</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="col-lg-12" id="frmAlumno2" method="POST">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="nombrealumno2">Alumnos</label>
+                                    <div class="input-group cocol-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <span class="input-group-addon">Alumno</span>
+                                        <input  class="form-control" id="idalumno2" name="idalumno2" disabled>
+                                        Nombre alumno: <input  id="nombrealumno2" name="nombrealumno2">
+                                        <br>
+                                        Nombre usuario: <input id="nombreusuario2" name="nombreusuario2">
+                                        <br>
+                                        Fecha Nacimiento: <input id="fechanacimiento2" type="date" name="fechanacimiento2">
+                                        <br>
+                                        Nacionalidad<input id="nacionalidad2" name="nacionalidad2">
+                                        <br>
+                                        Telefono: <input id="telefono2" name="telefono2">
+                                        <br>
+                                        Correo: <input id="correo2" name="correo2">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-primary btn-lg" id="btnEditar">Guardar</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Aqui inicia el form-->
+        <div class="row container contenido-tabla-escuelas" style="height: 370px;">
+            <h2>Alumnos Online</h2>
+            <br>
+
+            <div class="col col-lg-12 col-md-12">
+                <form id="frmAlumno" method="POST">
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="idalumno">Clave Alumno</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>  
+                                </span>
+                                <input class="form-control" id="idalumno" name="idalumno">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Nombre alumno-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nombrealumno">Nombre Alumno</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-font"></i>  
+                                </span>
+                                <input class="form-control" id="nombrealumno" name="nombrealumno">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nombre usuario-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nombreusuario">Nombre Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-bookmark"></i>  
+                                </span>
+                                <input class="form-control" id="nombreusuario" name="nombreusuario">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Fecha Nacimiento-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="fechanacimiento">Fecha Nacimiento</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>  
+                                </span>
+                                <input class="form-control" id="fechanacimiento" name="fechanacimiento" type="date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nacionalidad-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="nacionalidad">Nacionalidad</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-flag"></i>  
+                                </span>
+                                <input class="form-control" id="nacionalidad" name="nacionalidad">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Telefono-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="telefono">Telefono</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>  
+                                </span>
+                                <input class="form-control" id="telefono" name="telefono">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Correo-->
+                    <div class="col col-lg-6 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="correo">Correo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>  
+                                </span>
+                                <input class="form-control" id="correo" name="correo">
+                            </div>
+                        </div>
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="glyphicon glyphicon-save">&nbsp;Guardar</i>
+                        </button>
+                    </div>
+                    
+                    
+                </form> 
+                
+            </div> <!--FIN DEL DIV QUE CONTIENE EL FORMULARIO-->
+            
+        </div> <!--Fin del div principal-->  
+        <br>
+        <div class="row" style="height: auto;">
+            <table id="tbAlumno">
+                <thead>
+                    <tr>
+                        <th>Clave Alumno</th>
+                        <th>Nombre Alumno</th>
+                        <th>Nombre Usuario</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Nacionalidad</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Operaciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        </div>
+    <br>
+    <br>
+    <div class="final">
+            <br>
+            <br>
+            <div class="jumbotron-fluid">
+                <div class="container">
+                    <h1>Ireland schools</h1>
+                    <p class="footer-alumno">Copyright&copy; 2019 - Página creada por AleGrande- Todos los derechos reservados</p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </body>
+</html>
